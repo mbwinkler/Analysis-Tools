@@ -4,9 +4,7 @@ import os
 from tkinter.filedialog import askdirectory, askopenfilenames
 import matplotlib
 import matplotlib.pyplot as plt
-from matplotlib.widgets import RangeSlider, Button
 import seaborn as sns
-from tqdm import tqdm
 from scipy.optimize import curve_fit
 
 matplotlib.use('TkAgg')
@@ -94,6 +92,7 @@ def rambergosgood(YoungsModulus, threshold=None, firstestimate=None, figurewidth
     if figurestyle not in ['whitegrid', 'white', 'darkgrid', 'dark', 'ticks']:
         print('Figure style not in list\n run "help(rambergosgood)" for details')
         return
+    sns.set_style(figurestyle)
     if filetype not in ['png', 'pdf', 'ps', 'eps', 'svg']:
         print('Filetype not in list\n run "help(rambergosgood)" for details')
         return
@@ -118,7 +117,6 @@ def rambergosgood(YoungsModulus, threshold=None, firstestimate=None, figurewidth
     else:
         figsize = (width / 2.54, figureheight / 2.54)
 
-    sns.set_style("whitegrid")
     sns.set_context('notebook')
 
     filepaths = askopenfilenames(filetypes=[("Excel Files", '*.xlsx')], title='Which files shall be evaluated?')
@@ -164,11 +162,11 @@ def rambergosgood(YoungsModulus, threshold=None, firstestimate=None, figurewidth
     colormap = sns.color_palette(plotstyles[plotstyle], n_colors=len(Data) + 1)
     if plotstyle == 'red-blue':
         hue = False
-        del colormap[-1]
+        del colormap[0]
     elif plotstyle in ['seaborn-deep', 'seaborn-colorblind']:
         del colormap[0]
     else:
-        del colormap[-1]
+        del colormap[0]
 
     plt.figure(figsize=figsize)
     if hue:
