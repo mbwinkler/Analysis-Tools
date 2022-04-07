@@ -1,9 +1,3 @@
-# TODO: Plotter für Hysteresen aus Rohdaten
-#   Parameter: Cycles = Array(0.1,0.5,0.9) --> plottet 3 mal bei 0.1,0.5 und 0.9 der max Zyklen
-#   Restliche Plotting Parameter wie Style etc einfach übernehmen
-#   Im Plot Spannungsmaxium, Minimum etc angeben
-
-
 import numpy as np
 import pandas as pd
 import os
@@ -12,7 +6,6 @@ import matplotlib
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import seaborn as sns
-from matplotlib.colors import ListedColormap
 
 matplotlib.use('TkAgg')
 
