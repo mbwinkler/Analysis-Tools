@@ -53,11 +53,6 @@ def plotcyclesstress(figurewidth='nature-singlecolumn', figureheight=None, plots
         usestablezonedata   -- True/False whether the evaluation from fileevaluator() should be used.
         logx                -- True/False whether to set the x-axis scale to logarithmic.
 
-
-
-
-    Additional arguments:
-
         """
     figurewidths = {'nature-singlecolumn': 8.9,
                     'nature-oneandhalfcolumn': 12,
@@ -145,7 +140,7 @@ def plotcyclesstress(figurewidth='nature-singlecolumn', figureheight=None, plots
     order = titles.reset_index().sort_values(by=["Strain Amplitude (%)"]).index.tolist()
     handles, labels = plt.gca().get_legend_handles_labels()
     plt.legend(labels=[Legends[idx] for idx in order], handles=[handles[idx] for idx in order],
-               title='Dehnungsamplitude', loc='best')
+               title='Dehnungsamplitude', loc='center left')
 
     plt.xlabel('Elapsed Cycles [-]')
     plt.ylabel('Stress [MPa]')

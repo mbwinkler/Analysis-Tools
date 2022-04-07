@@ -60,11 +60,6 @@ def rambergosgood(YoungsModulus, threshold=None, firstestimate=None, figurewidth
                                     - 'svg'
         savedata            -- True/False wheter to save the Dataframe as Excel file
 
-
-
-
-    Additional arguments:
-
         """
     figurewidths = {'nature-singlecolumn': 8.9,
                     'nature-oneandhalfcolumn': 12,
@@ -180,7 +175,7 @@ def rambergosgood(YoungsModulus, threshold=None, firstestimate=None, figurewidth
         plt.plot(strainplot, stressplot, label=f'ramberg-osgood\nK = {c[0]:.2f}\nn = {c[1]:.2f}',
                  color='b')
 
-    plt.legend()
+    plt.legend(loc='center right')
     plt.title('Ramberg-Osgood Curve Fit')
     plt.tight_layout()
     if save:

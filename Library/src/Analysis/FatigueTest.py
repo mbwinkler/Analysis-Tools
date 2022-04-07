@@ -21,8 +21,6 @@ def filereader(cols=None, normalize=False):
                             ['Total Time (s)', 'Elapsed Cycles', 'Strain (%)', 'Stress (MPa)']
                             Default concerning the data at the chair of metal structures is [0,3,8,10]
 
-    Additional arguments:
-
         """
     if cols is None:
         cols = [0, 3, 8, 10]
@@ -72,8 +70,6 @@ def fileevaluator(save=True, filetype='pdf'):
                                     - 'ps'
                                     - 'eps'
                                     - 'svg'
-
-    Additional arguments:
 
         """
     if filetype not in ['png', 'pdf', 'ps', 'eps', 'svg']:
