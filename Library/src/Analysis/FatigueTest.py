@@ -60,6 +60,7 @@ def filereader(cols=None, normalize=False):
 
 
 def fileevaluator(save=True, filetype='pdf'):
+    #TODO: dpi hinzufüge
     """Reads cleaned excel files and graphically determines the stable cyclic zones.
 
     Keyword arguments:

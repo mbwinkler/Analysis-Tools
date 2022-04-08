@@ -162,7 +162,7 @@ def plothystereses(Cycles=None, figurewidth='nature-singlecolumn', figureheight=
         plt.legend(loc='upper left')
         plt.xlabel('Strain [%]')
         plt.ylabel('Stress [MPa]')
-        plt.title(f'Hystereses - $\epsilon_a = {strainamplitude:.2f}$ %')
+        plt.title(f'Hystereses - $\epsilon_a = {strainamplitude:.1f}$ %')
         plt.tight_layout()
         filename = os.path.splitext(os.path.basename(file))[0]
         plt.savefig(savedirectory + '/' + filename + '_Hystereses.' + filetype, dpi=dpi)

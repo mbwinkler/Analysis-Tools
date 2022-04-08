@@ -119,6 +119,7 @@ def plotcyclesstress(figurewidth='nature-singlecolumn', figureheight=None, plots
         else:
             print('This Excel file has not yet been evaluated by fileevaluator()')
         temp.insert(0, 'Sample', Samplename)
+        #TODO: if parameter True dann Zyklen auf 0,1 normalisieren
         Data = pd.concat([Data, temp])
 
     colormap = sns.color_palette(plotstyles[plotstyle], n_colors=len(Data['Sample'].unique()))
