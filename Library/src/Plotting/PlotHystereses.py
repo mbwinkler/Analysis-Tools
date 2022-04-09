@@ -11,7 +11,7 @@ matplotlib.use('TkAgg')
 
 
 def plothystereses(Cycles=None, figurewidth='nature-singlecolumn', figureheight=None, plotstyle='seaborn-deep',
-                   figurestyle='whitegrid', dpi=500, filetype='pdf', cols=None, normalize=False):
+                   figurestyle='whitegrid', axisunitstyle='arrow', dpi=500, filetype='pdf', cols=None, normalize=False):
     """Reads multiple evaluated excel files, calculates mean amplitudes, then fits Ramberg Osgood equation to the
     amplitudes and returns a fitting plot.
 
@@ -46,6 +46,10 @@ def plothystereses(Cycles=None, figurewidth='nature-singlecolumn', figureheight=
                                     - 'darkgrid'
                                     - 'dark'
                                     - 'ticks'
+        axisunitstyle           -- Style to plot the axis label with. One of the following:
+                                    - 'arrow' equates to 'Measurement in Unit →' --> Dafault
+                                    - 'square-brackets' equates to 'Measurement [Unit]
+                                    - 'round-brackets' equates to 'Measurement (Unit)'
 
         dpi                 -- Dpi to save figure with. Int Value.
         filetype            -- specify filetype as one of the following:
@@ -160,8 +164,17 @@ def plothystereses(Cycles=None, figurewidth='nature-singlecolumn', figureheight=
                      label=f'Cycle = {cycleindex:.0f},\n' + f'$\sigma_a$      = {stressamplitude:.2f}')
 
         plt.legend(loc='upper left')
-        plt.xlabel('Strain [%]')
-        plt.ylabel('Stress [MPa]')
+        if axisunitstyle == 'square-brackets':
+            plt.xlabel('Strain [%]')
+            plt.ylabel('Stress [MPa]')
+        elif axisunitstyle == 'round-brackets':
+            plt.xlabel('Strain (%)')
+            plt.ylabel('Stress (MPa)')
+        else:
+            plt.xlabel('Strain in % →')
+            plt.ylabel('Stress in MPa →')
+
+
         plt.title(f'Hystereses - $\epsilon_a = {strainamplitude:.1f}$ %')
         plt.tight_layout()
         filename = os.path.splitext(os.path.basename(file))[0]

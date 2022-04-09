@@ -9,8 +9,8 @@ import seaborn as sns
 matplotlib.use('TkAgg')
 
 
-def plotcyclesstress(figurewidth='nature-singlecolumn', figureheight=None, plotstyle='seaborn-deep',
-                     figurestyle='whitegrid', dpi=500, filetype='pdf', savedata=False, usestablezonedata=True,
+def plotcyclesstress(normalizecycles=False, figurewidth='nature-singlecolumn', figureheight=None, plotstyle='seaborn-deep',
+                     figurestyle='whitegrid', axisunitstyle='arrow', dpi=500, filetype='pdf', savedata=False, usestablezonedata=True,
                      logx=True):
     """Reads multiple evaluated excel files, calculates mean amplitudes, then fits Ramberg Osgood equation to the
     amplitudes and returns a fitting plot.
@@ -41,7 +41,10 @@ def plotcyclesstress(figurewidth='nature-singlecolumn', figureheight=None, plots
                                     - 'darkgrid'
                                     - 'dark'
                                     - 'ticks'
-
+        axisunitstyle           -- Style to plot the axis label with. One of the following:
+                                    - 'arrow' equates to 'Measurement in Unit →' --> Dafault
+                                    - 'square-brackets' equates to 'Measurement [Unit]
+                                    - 'round-brackets' equates to 'Measurement (Unit)'
         dpi                 -- Dpi to save figure with. Int Value.
         filetype            -- specify filetype as one of the following:
                                     - 'pdf' --> Default
@@ -70,7 +73,7 @@ def plotcyclesstress(figurewidth='nature-singlecolumn', figureheight=None, plots
                   'seaborn-spectral': 'Spectral',
                   'red-blue': ['r']}
     if figurestyle not in ['whitegrid', 'white', 'darkgrid', 'dark', 'ticks']:
-        print('Figure style not in list\n run "help(rambergosgood)" for details')
+        print('Figure style not in list\n run "help(rambergosgood)" for details.')
         return
     sns.set_style(figurestyle)
 
@@ -116,10 +119,14 @@ def plotcyclesstress(figurewidth='nature-singlecolumn', figureheight=None, plots
 
         if 'Stable' in temp.columns and usestablezonedata:
             temp = temp.iloc[:int(temp.index[temp['Stable'] == 'Stable'].tolist()[-1]), :]
+        elif 'Stable' in temp.columns and not usestablezonedata:
+            print('Stable zone data is present, but not used.')
         else:
-            print('This Excel file has not yet been evaluated by fileevaluator()')
+            print('This Excel file has not yet been evaluated by fileevaluator().')
         temp.insert(0, 'Sample', Samplename)
         #TODO: if parameter True dann Zyklen auf 0,1 normalisieren
+        if normalizecycles:
+            temp['Elapsed Cycles'] = temp['Elapsed Cycles'].divide(temp['Elapsed Cycles'].max())
         Data = pd.concat([Data, temp])
 
     colormap = sns.color_palette(plotstyles[plotstyle], n_colors=len(Data['Sample'].unique()))
@@ -129,10 +136,9 @@ def plotcyclesstress(figurewidth='nature-singlecolumn', figureheight=None, plots
     sns.lineplot(data=Data, x='Elapsed Cycles', y='Stress Max (MPa)', hue='Sample', palette=colormap)
     sns.lineplot(data=Data, x='Elapsed Cycles', y='Stress Min (MPa)', hue='Sample', palette=colormap, legend=False)
 
-    if logx:
+    if logx and not normalizecycles:
         plt.xscale('log')
     plt.title('Elapsed Cycles - Stress')
-    plt.tight_layout()
 
     titles = Data.groupby("Sample")['Strain Amplitude (%)'].median()
     Legends = []
@@ -143,8 +149,17 @@ def plotcyclesstress(figurewidth='nature-singlecolumn', figureheight=None, plots
     plt.legend(labels=[Legends[idx] for idx in order], handles=[handles[idx] for idx in order],
                title='Dehnungsamplitude', loc='center left')
 
-    plt.xlabel('Elapsed Cycles [-]')
-    plt.ylabel('Stress [MPa]')
+    if axisunitstyle == 'square-brackets':
+        plt.xlabel('Elapsed Cycles [-]')
+        plt.ylabel('Stress [MPa]')
+    elif axisunitstyle == 'round-brackets':
+        plt.xlabel('Elapsed Cycles (-)')
+        plt.ylabel('Stress (MPa)')
+    else:
+        plt.xlabel('Elapsed Cycles →')
+        plt.ylabel('Stress in MPa →')
+
+    plt.tight_layout()
     plt.savefig(savedirectory + '/' + 'cycles-stress.' + filetype, dpi=dpi)
     plt.show()
 

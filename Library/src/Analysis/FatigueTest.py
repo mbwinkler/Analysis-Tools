@@ -59,7 +59,7 @@ def filereader(cols=None, normalize=False):
         Data.to_excel(savedirectory + '/' + filename + '_cleaned.xlsx')
 
 
-def fileevaluator(save=True, filetype='pdf'):
+def fileevaluator(save=True, dpi=500, filetype='pdf'):
     #TODO: dpi hinzufüge
     """Reads cleaned excel files and graphically determines the stable cyclic zones.
 
@@ -74,7 +74,7 @@ def fileevaluator(save=True, filetype='pdf'):
 
         """
     if filetype not in ['png', 'pdf', 'ps', 'eps', 'svg']:
-        print('Filetype not in list\n run "help(rambergosgood)" for details')
+        print('Filetype not in list\n run "help(rambergosgood)" for details.')
         return
 
     filepaths = askopenfilenames(filetypes=[("Excel Files", '*.xlsx')], title='Which files shall be evaluated?')
@@ -95,8 +95,8 @@ def fileevaluator(save=True, filetype='pdf'):
         button = Button(donebuttonax, 'Done', hovercolor='0.975')
 
         ax.scatter(Data['Elapsed Cycles'], Data['Stress Amplitude (MPa)'], color='b', label='stable')
-        ax.set_xlabel('Elapsed Cycles [-]')
-        ax.set_ylabel('Stress Amplitude [MPa]')
+        ax.set_xlabel('Elapsed Cycles →')
+        ax.set_ylabel('Stress Amplitude in MPa →')
         ax.legend(loc='upper right')
         ax.set_title('Stable Zone')
 
@@ -114,8 +114,8 @@ def fileevaluator(save=True, filetype='pdf'):
             ax.scatter(Data.loc[Data['Elapsed Cycles'] > int(val[1])]['Elapsed Cycles'],
                        Data.loc[Data['Elapsed Cycles'] > int(val[1])]['Stress Amplitude (MPa)'], color='r',
                        label='unstable')
-            ax.set_ylabel('Stress Amplitude [MPa]')
-            ax.set_xlabel('Elapsed Cycles [-]')
+            ax.set_xlabel('Elapsed Cycles →')
+            ax.set_ylabel('Stress Amplitude in MPa →')
             ax.set_title('Stable Zone')
             ax.legend(loc='upper right')
             ax.set_title('Stable Zone')
@@ -130,7 +130,7 @@ def fileevaluator(save=True, filetype='pdf'):
 
             Data.to_excel(savedirectory + '/' + filename + '_evaluated.xlsx', index=False)
             if save:
-                plt.savefig(savedirectory + '/' + filename + '_evaluated.' + filetype, dpi=600)
+                plt.savefig(savedirectory + '/' + filename + '_evaluated.' + filetype, dpi=dpi)
             plt.close(fig)
 
         slider.on_changed(update)
