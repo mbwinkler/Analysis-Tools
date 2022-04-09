@@ -5,8 +5,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="TUMMET",
-    version="0.0.1",
-    author="Michael Winklerr",
+    version="0.0.3",
+    author="Michael Winkler",
     author_email="michael.b.winkler@tum.de",
     description="A packages to evaluate material test data",
     long_description=long_description,

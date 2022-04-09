@@ -1,7 +1,7 @@
 
 
 # TUMMET: Analysis and Evaluation for experimental data.
-[![PyPI Latest Release](https://img.shields.io/pypi/v/pandas.svg)](https://pypi.org/project/pandas/)
+[![PyPI Latest Release](https://img.shields.io/pypi/v/TUMMET?style=for-the-badge)](https://pypi.org/project/TUMMET/)
 
 ## What is it?
 
@@ -37,12 +37,12 @@ The source code is currently hosted on GitHub at:
 https://github.com/mbwinkler/TUM-MET
 
 The latest released version is available thorugh the [Python
-Package Index (PyPI)](https://pypi.org/project/pandas).
+Package Index (PyPI)](https://pypi.org/project/TUMMET/).
 
 
 ```sh
 # or PyPI
-pip install pandas
+pip install TUMMET
 ```
 
 ## Dependencies
@@ -67,6 +67,6 @@ pip install pandas
 ## Getting Help
 
 For usage questions for a specific function, run the following statement to print the documentation: 
-```python
+```
 help(function_name)
 ```
