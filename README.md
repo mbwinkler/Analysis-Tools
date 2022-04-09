@@ -42,7 +42,6 @@ Package Index (PyPI)](https://pypi.org/project/TUMMET/).
 
 
 ```sh
-# or PyPI
 pip install TUMMET
 ```
 
