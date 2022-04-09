@@ -179,7 +179,7 @@ def rambergosgood(YoungsModulus, threshold=None, firstestimate=None, figurewidth
     plt.title('Ramberg-Osgood Curve Fit')
     plt.tight_layout()
     if save:
-        plt.savefig(savedirectory + '/' + 'Ramberg-Osgood-fit.' + filetype, dpi=dpi)
+        plt.savefig(savedirectory + os.sep + 'Ramberg-Osgood-fit.' + filetype, dpi=dpi)
     if savedata:
-        Data.to_excel(savedirectory + '/' + 'Ramberg-Osgood_curve_fit.xlsx', index=False)
+        Data.to_excel(savedirectory + os.sep + 'Ramberg-Osgood_curve_fit.xlsx', index=False)
     plt.show()

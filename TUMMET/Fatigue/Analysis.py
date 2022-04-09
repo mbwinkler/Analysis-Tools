@@ -56,11 +56,10 @@ def filereader(cols=None, normalize=False):
         Data['Stress Amplitude (MPa)'] = (Data['Stress Max (MPa)'] - Data['Stress Min (MPa)']) / 2
 
         filename = os.path.splitext(os.path.basename(file))[0]
-        Data.to_excel(savedirectory + '/' + filename + '_cleaned.xlsx')
+        Data.to_excel(savedirectory + os.sep + filename + '_cleaned.xlsx')
 
 
 def fileevaluator(save=True, dpi=500, filetype='pdf'):
-    #TODO: dpi hinzufüge
     """Reads cleaned excel files and graphically determines the stable cyclic zones.
 
     Keyword arguments:
@@ -128,9 +127,9 @@ def fileevaluator(save=True, dpi=500, filetype='pdf'):
 
             filename = os.path.splitext(os.path.basename(file))[0]
 
-            Data.to_excel(savedirectory + '/' + filename + '_evaluated.xlsx', index=False)
+            Data.to_excel(savedirectory + os.sep + filename + '_evaluated.xlsx', index=False)
             if save:
-                plt.savefig(savedirectory + '/' + filename + '_evaluated.' + filetype, dpi=dpi)
+                plt.savefig(savedirectory + os.sep + filename + '_evaluated.' + filetype, dpi=dpi)
             plt.close(fig)
 
         slider.on_changed(update)
