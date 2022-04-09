@@ -12,7 +12,7 @@ sns.set()
 sns.set_color_codes()
 
 
-def filereader(cols=None, normalize=False):
+def evaluate_raw_data(cols=None, normalize=False):
     """Reads excel or csv files, calculates cyclic data and saves as excel to be imported later.
 
     Keyword arguments:
@@ -59,7 +59,7 @@ def filereader(cols=None, normalize=False):
         Data.to_excel(savedirectory + os.sep + filename + '_cleaned.xlsx')
 
 
-def fileevaluator(save=True, dpi=500, filetype='pdf'):
+def evaluate_stable_zone(save=True, dpi=500, filetype='pdf'):
     """Reads cleaned excel files and graphically determines the stable cyclic zones.
 
     Keyword arguments:

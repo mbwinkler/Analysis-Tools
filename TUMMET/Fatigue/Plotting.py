@@ -10,7 +10,7 @@ import seaborn as sns
 matplotlib.use('TkAgg')
 
 
-def plotcyclesstress(normalizecycles=False, figurewidth='nature-singlecolumn', figureheight=None,
+def plot_cycles_stress(normalizecycles=False, figurewidth='nature-singlecolumn', figureheight=None,
                      plotstyle='seaborn-deep',
                      figurestyle='whitegrid', axisunitstyle='arrow', dpi=500, filetype='pdf', savedata=False,
                      usestablezonedata=True,
@@ -169,7 +169,7 @@ def plotcyclesstress(normalizecycles=False, figurewidth='nature-singlecolumn', f
         Data.to_excel(savedirectory + os.sep + 'Plot-Cycles-Stress.xlsx', index=False)
 
 
-def plothystereses(Cycles=None, useabsolutecycles=False, figurewidth='nature-singlecolumn', figureheight=None,
+def plot_hystereses(Cycles=None, useabsolutecycles=False, figurewidth='nature-singlecolumn', figureheight=None,
                    plotstyle='seaborn-deep',
                    figurestyle='whitegrid', axisunitstyle='arrow', dpi=500, filetype='pdf', cols=None, normalize=False):
     """Reads multiple evaluated excel files, calculates mean amplitudes, then fits Ramberg Osgood equation to the

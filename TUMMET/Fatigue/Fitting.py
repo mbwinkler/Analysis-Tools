@@ -10,7 +10,7 @@ from scipy.optimize import curve_fit
 matplotlib.use('TkAgg')
 
 
-def rambergosgood(YoungsModulus, threshold=None, firstestimate=None, figurewidth='nature-singlecolumn',
+def fit_ramberg_osgood(YoungsModulus, threshold=None, firstestimate=None, figurewidth='nature-singlecolumn',
                   figureheight=None, plotstyle='seaborn-deep', figurestyle='whitegrid', dpi=500, hue=True,
                   save=True, filetype='pdf', savedata=False):
     """Reads multiple evaluated excel files, calculates mean amplitudes, then fits Ramberg Osgood equation to the
