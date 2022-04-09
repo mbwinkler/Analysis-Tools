@@ -2,3 +2,5 @@
 build/
 
 TUMMET/TUMMET.egg-info/
+
+dist/
