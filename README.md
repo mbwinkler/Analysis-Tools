@@ -1,7 +1,7 @@
 
 
 # TUMMET: Analysis and Evaluation for experimental data.
-[![PyPI Latest Release](https://img.shields.io/pypi/v/TUMMET?style=for-the-badge)](https://pypi.org/project/TUMMET/)
+[![PyPI Latest Release](https://img.shields.io/pypi/v/TUMMET?color=blue&style=for-the-badge)](https://pypi.org/project/TUMMET/)
 
 ## What is it?
 
@@ -12,18 +12,19 @@ Originally built for the Chair of Metal Structures at the Technical University o
 Created and maintained by Michael Winkler -  michael.b.winkler@tum.de
 
 ## Current List of Features
+Includes: 
 - Strain-controlled fatigue test:
---Reading and evaluating raw data
---interactive stable zone determination
---Fitting the Ramberg-Osgood relationship to individual fatigue tests
---Plotting Hystereses
---Plotting Cycles-Stress 
+  - Reading and evaluating raw data
+  - interactive stable zone determination
+  - Fitting the Ramberg-Osgood relationship to individual fatigue tests
+  - Plotting Hystereses
+  - Plotting Cycles-Stress 
 
 - Stress-controlled fatigue test:
---In Development ... 
+    - In Development ... 
 
 - Tensile test:
---In Development ...
+    - In Development ...
 
 - ...
 
