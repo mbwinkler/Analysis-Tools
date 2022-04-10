@@ -64,6 +64,7 @@ def evaluate_stable_zone(save=True, dpi=500, filetype='pdf'):
 
     Keyword arguments:
         save                -- True/False decide whether to save the final plot as a pdf
+        dpi                 -- Dpi to save figure with. Int Value.
         filetype            -- specify filetype as one of the following:
                                     - 'pdf' --> Default
                                     - 'png'

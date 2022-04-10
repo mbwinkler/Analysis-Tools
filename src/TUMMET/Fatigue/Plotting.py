@@ -19,6 +19,7 @@ def plot_cycles_stress(normalizecycles=False, figurewidth='nature-singlecolumn',
     amplitudes and returns a fitting plot.
 
     Keyword arguments:
+        normalizecycles     -- If True normalizes the Cycles of every sample between 0 and 1. Default is False.
         figurewidth         -- Width of figure. Float value in cm or one of the following:
                                     - 'nature-singlecolumn' --> Default
                                     - 'nature-oneandhalfcolumn'
@@ -32,7 +33,7 @@ def plot_cycles_stress(normalizecycles=False, figurewidth='nature-singlecolumn',
                                Defaults to 'nature-singlecolumn'
         figureheight        -- Height of figure. Float value in cm. Defaults to value of figurewidth.
         plotstyle           -- Style of plot. One of the following:
-                                    - 'seaborn-default' --> Default
+                                    - 'seaborn-deep' --> Default
                                     - 'seaborn-colorblind'
                                     - 'seaborn-rocket'
                                     - 'seaborn-crest'
@@ -149,7 +150,7 @@ def plot_cycles_stress(normalizecycles=False, figurewidth='nature-singlecolumn',
     order = titles.reset_index().sort_values(by=["Strain Amplitude (%)"]).index.tolist()
     handles, labels = plt.gca().get_legend_handles_labels()
     plt.legend(labels=[Legends[idx] for idx in order], handles=[handles[idx] for idx in order],
-               title='Dehnungsamplitude', loc='center left')
+               title='Strain Amplitude', loc='center left')
 
     if axisunitstyle == 'square-brackets':
         plt.xlabel('Elapsed Cycles [-]')
