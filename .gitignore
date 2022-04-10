@@ -4,3 +4,9 @@ build/
 src/TUMMET/TUMMET.egg-info/
 
 dist/
+
+src/TUMMET.egg-info/
+
+src/TUMMET/__pycache__/
+
+src/TUMMET/Fatigue/__pycache__/
