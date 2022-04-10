@@ -1,6 +1,6 @@
 
 build/
 
-TUMMET/TUMMET.egg-info/
+src/TUMMET/TUMMET.egg-info/
 
 dist/

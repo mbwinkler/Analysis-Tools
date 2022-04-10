@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="TUMMET",
-    version="0.0.5",
+    version="0.0.8",
     author="Michael Winkler",
     author_email="michael.b.winkler@tum.de",
     description="A packages to evaluate material test data",
@@ -14,11 +14,11 @@ setuptools.setup(
     url="https://github.com/mbwinkler/TUM-MET",
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
     ],
-    package_dir={"": "TUMMET"},
-    packages=setuptools.find_packages(where="TUMMET"),
+    package_dir={"": "src"},
+    packages=setuptools.find_packages(where="src"),
     python_requires=">=3.9",
     install_requires=[
         'colorama == 0.4.4',
@@ -35,5 +35,6 @@ setuptools.setup(
         'scipy == 1.8.0',
         'seaborn == 0.11.2',
         'six == 1.16.0',
-        'tqdm == 4.64.0']
+        'tqdm == 4.64.0',
+        'openpyxl == 3.0.9']
 )
