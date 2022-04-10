@@ -10,9 +10,9 @@ from scipy.optimize import curve_fit
 matplotlib.use('TkAgg')
 
 
-def fit_ramberg_osgood(YoungsModulus, threshold=None, firstestimate=None, figurewidth='nature-singlecolumn',
-                  figureheight=None, plotstyle='seaborn-deep', figurestyle='whitegrid', dpi=500, hue=True,
-                  save=True, filetype='pdf', savedata=False):
+def fit_ramberg_osgood(YoungsModulus, threshold=None, figurewidth='nature-doublecolumn',
+                  figureheight=None, plotstyle='seaborn-deep', figurestyle='whitegrid', axisunitstyle='arrow', dpi=500,
+                       hue=True, filetype='pdf', savedata=False):
     """Reads multiple evaluated excel files, calculates mean amplitudes, then fits Ramberg Osgood equation to the
     amplitudes and returns a fitting plot.
 
@@ -22,11 +22,10 @@ def fit_ramberg_osgood(YoungsModulus, threshold=None, firstestimate=None, figure
                                to start the stable zone. Beware of logic errors, when the end of the stable zone
                                falls before the start of the stable zone by using a too high threshold variable.
                                Will default to the previously determined stable zone if this error is encountered.
-        firstestimate       -- List of values of K and n to use as a first estimate. Syntax [K, n]
         figurewidth         -- Width of figure. Float value in cm or one of the following:
-                                    - 'nature-singlecolumn' --> Default
+                                    - 'nature-singlecolumn'
                                     - 'nature-oneandhalfcolumn'
-                                    - 'nature-doublecolumn'
+                                    - 'nature-doublecolumn' --> Default
                                     - 'elsevier-minimal'
                                     - 'elsevier-singlecolumn'
                                     - 'elsevier-oneandhalfcolumn'
@@ -48,10 +47,12 @@ def fit_ramberg_osgood(YoungsModulus, threshold=None, firstestimate=None, figure
                                     - 'darkgrid'
                                     - 'dark'
                                     - 'ticks'
-
+        axisunitstyle           -- Style to plot the axis label with. One of the following:
+                                    - 'arrow' equates to 'Measurement in Unit →' --> Dafault
+                                    - 'square-brackets' equates to 'Measurement [Unit]
+                                    - 'round-brackets' equates to 'Measurement (Unit)'
         dpi                 -- Dpi to save figure with. Int Value.
         hue                 -- True/False whether to uniquely identify the samples in the legend
-        save                -- True/False whether to save the resulting figure.
         filetype            -- specify filetype as one of the following:
                                     - 'pdf' --> Default
                                     - 'png'
@@ -76,14 +77,7 @@ def fit_ramberg_osgood(YoungsModulus, threshold=None, firstestimate=None, figure
                   'seaborn-crest': 'crest',
                   'seaborn-spectral': 'Spectral',
                   'red-blue': ['r']}
-    if firstestimate is None:
-        firstestimate = [600, 0.2]
-    elif len(firstestimate) != 2:
-        print('first estimation must be a list of length 2\n run "help(rambergosgood)" for details')
-        return
-    elif np.any(np.issubdtype(np.dtype(firstestimate), np.number)):
-        print('first estimate must be numbers\n run "help(rambergosgood)" for details')
-        return
+
     if figurestyle not in ['whitegrid', 'white', 'darkgrid', 'dark', 'ticks']:
         print('Figure style not in list\n run "help(rambergosgood)" for details')
         return
@@ -175,11 +169,21 @@ def fit_ramberg_osgood(YoungsModulus, threshold=None, firstestimate=None, figure
         plt.plot(strainplot, stressplot, label=f'ramberg-osgood\nK = {c[0]:.2f}\nn = {c[1]:.2f}',
                  color='b')
 
+    if axisunitstyle == 'square-brackets':
+        plt.xlabel('Strain [%]')
+        plt.ylabel('Stress [MPa]')
+    elif axisunitstyle == 'round-brackets':
+        plt.xlabel('Strain (%)')
+        plt.ylabel('Stress (MPa)')
+    else:
+        plt.xlabel('Strain in % →')
+        plt.ylabel('Stress in MPa →')
+
     plt.legend(loc='center right')
     plt.title('Ramberg-Osgood Curve Fit')
     plt.tight_layout()
-    if save:
-        plt.savefig(savedirectory + os.sep + 'Ramberg-Osgood-fit.' + filetype, dpi=dpi)
+
+    plt.savefig(savedirectory + os.sep + 'Ramberg-Osgood-fit.' + filetype, dpi=dpi)
     if savedata:
         Data.to_excel(savedirectory + os.sep + 'Ramberg-Osgood_curve_fit.xlsx', index=False)
     plt.show()
