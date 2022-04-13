@@ -141,13 +141,14 @@ def fit_ramberg_osgood(YoungsModulus, threshold=None, figurewidth='nature-double
                          'Stress Amplitude [MPa]': stressamplitudes})
 
     def rambergosgoodfunction(stressamplitudes, K, n):
-        return np.divide(stressamplitudes, YoungsModulus) + pow(np.divide(stressamplitudes, K), np.divide(1, n))
+        return (np.divide(stressamplitudes, YoungsModulus) + pow(np.divide(stressamplitudes, K), np.divide(1, n)))*100
 
     c, cov = curve_fit(rambergosgoodfunction, stressamplitudes, strainamplitudes, maxfev=100000)
+    #Strain Amplitude has to be in absolute unit
 
     stressplot = np.linspace(0, 1.05 * Data['Stress Amplitude [MPa]'].max(), 10000)
-    strainplot = np.divide(stressplot, YoungsModulus) + pow(np.divide(stressplot, c[0]), np.divide(1, c[1]))
-
+    strainplot = rambergosgoodfunction(stressplot,c[0], c[1])
+    # Transformation from absolute to percentage strain
     colormap = sns.color_palette(plotstyles[plotstyle], n_colors=len(Data) + 1)
     if plotstyle == 'red-blue':
         hue = False
