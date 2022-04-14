@@ -11,9 +11,10 @@ matplotlib.use('TkAgg')
 
 
 def plot_cycles_stress(normalizecycles=False, figurewidth='nature-doublecolumn', figureheight=None,
-                     plotstyle='seaborn-deep',
-                     figurestyle='whitegrid', axisunitstyle='arrow', dpi=500, filetype='pdf', savedata=False,
-                     usestablezonedata=True, logx=True):
+                       plotstyle='seaborn-deep',
+                       figurestyle='whitegrid', axisunitstyle='arrow', title=None, dpi=500, filetype='pdf',
+                       savedata=False,
+                       usestablezonedata=True, logx=True):
     """Reads multiple evaluated excel files, calculates mean amplitudes, then fits Ramberg Osgood equation to the
     amplitudes and returns a fitting plot.
 
@@ -44,10 +45,11 @@ def plot_cycles_stress(normalizecycles=False, figurewidth='nature-doublecolumn',
                                     - 'darkgrid'
                                     - 'dark'
                                     - 'ticks'
-        axisunitstyle           -- Style to plot the axis label with. One of the following:
+        axisunitstyle       -- Style to plot the axis label with. One of the following:
                                     - 'arrow' equates to 'Measurement in Unit →' --> Dafault
                                     - 'square-brackets' equates to 'Measurement [Unit]
                                     - 'round-brackets' equates to 'Measurement (Unit)'
+        title               -- Title for the resulting plot.
         dpi                 -- Dpi to save figure with. Int Value.
         filetype            -- specify filetype as one of the following:
                                     - 'pdf' --> Default
@@ -140,7 +142,10 @@ def plot_cycles_stress(normalizecycles=False, figurewidth='nature-doublecolumn',
 
     if logx and not normalizecycles:
         plt.xscale('log')
-    plt.title('Elapsed Cycles - Stress')
+    if title is not None and isinstance(title, str):
+        plt.title(title)
+    else:
+        plt.title('Elapsed Cycles - Stress')
 
     titles = Data.groupby("Sample")['Strain Amplitude (%)'].median()
     Legends = []
@@ -170,8 +175,9 @@ def plot_cycles_stress(normalizecycles=False, figurewidth='nature-doublecolumn',
 
 
 def plot_hystereses(Cycles=None, useabsolutecycles=False, figurewidth='nature-doublecolumn', figureheight=None,
-                   plotstyle='seaborn-deep',
-                   figurestyle='whitegrid', axisunitstyle='arrow', title=None, dpi=500, filetype='pdf', cols=None, normalize=False):
+                    plotstyle='seaborn-deep',
+                    figurestyle='whitegrid', axisunitstyle='arrow', title=None, dpi=500, filetype='pdf', cols=None,
+                    normalize=False):
     """Reads multiple evaluated excel files, calculates mean amplitudes, then fits Ramberg Osgood equation to the
     amplitudes and returns a fitting plot.
 
@@ -206,11 +212,11 @@ def plot_hystereses(Cycles=None, useabsolutecycles=False, figurewidth='nature-do
                                     - 'darkgrid'
                                     - 'dark'
                                     - 'ticks'
-        axisunitstyle           -- Style to plot the axis label with. One of the following:
+        axisunitstyle       -- Style to plot the axis label with. One of the following:
                                     - 'arrow' equates to 'Measurement in Unit →' --> Dafault
                                     - 'square-brackets' equates to 'Measurement [Unit]
                                     - 'round-brackets' equates to 'Measurement (Unit)'
-
+        title               -- Title for the resulting plot.
         dpi                 -- Dpi to save figure with. Int Value.
         filetype            -- specify filetype as one of the following:
                                     - 'pdf' --> Default
@@ -324,8 +330,7 @@ def plot_hystereses(Cycles=None, useabsolutecycles=False, figurewidth='nature-do
                          label=f'Cycle = {cycleindex:.0f},\n' + f'$\sigma_a$      = {stressamplitude:.2f}')
             else:
                 plt.plot(cycleframe['Strain (%)'], cycleframe['Stress (MPa)'], color=colormap[index],
-                         label=f'Cycle = {cycleindex*100/maxcycles:.1f} %,\n' + f'$\sigma_a$      = {stressamplitude:.2f}')
-
+                         label=f'Cycle = {cycleindex * 100 / maxcycles:.1f} %,\n' + f'$\sigma_a$      = {stressamplitude:.2f}')
 
         plt.legend(loc='upper left')
         if axisunitstyle == 'square-brackets':
@@ -339,7 +344,11 @@ def plot_hystereses(Cycles=None, useabsolutecycles=False, figurewidth='nature-do
             plt.ylabel('Stress in MPa →')
 
         strainamplitude = Data['Strain Amplitude (%)'].mean()
-        plt.title(f'Hystereses - $\epsilon_a = {strainamplitude:.1f}$ %')
+        if title is not None and isinstance(title, str):
+            plt.title(f'{title}\n$\epsilon_a = {strainamplitude:.1f}$ %')
+        else:
+            plt.title(f'Hystereses\n$\epsilon_a = {strainamplitude:.1f}$ %')
+
         plt.tight_layout()
         filename = os.path.splitext(os.path.basename(file))[0]
         plt.savefig(savedirectory + os.sep + filename + '_Hystereses.' + filetype, dpi=dpi)

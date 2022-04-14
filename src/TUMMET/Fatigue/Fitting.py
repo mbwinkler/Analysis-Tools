@@ -11,8 +11,8 @@ matplotlib.use('TkAgg')
 
 
 def fit_ramberg_osgood(YoungsModulus, threshold=None, figurewidth='nature-doublecolumn',
-                  figureheight=None, plotstyle='seaborn-deep', figurestyle='whitegrid', axisunitstyle='arrow', dpi=500,
-                       hue=True, filetype='pdf', savedata=False):
+                       figureheight=None, plotstyle='seaborn-deep', figurestyle='whitegrid', axisunitstyle='arrow',
+                       title=None, dpi=500, hue=True, filetype='pdf', savedata=False):
     """Reads multiple evaluated excel files, calculates mean amplitudes, then fits Ramberg Osgood equation to the
     amplitudes and returns a fitting plot.
 
@@ -47,10 +47,11 @@ def fit_ramberg_osgood(YoungsModulus, threshold=None, figurewidth='nature-double
                                     - 'darkgrid'
                                     - 'dark'
                                     - 'ticks'
-        axisunitstyle           -- Style to plot the axis label with. One of the following:
+        axisunitstyle       -- Style to plot the axis label with. One of the following:
                                     - 'arrow' equates to 'Measurement in Unit →' --> Dafault
                                     - 'square-brackets' equates to 'Measurement [Unit]
                                     - 'round-brackets' equates to 'Measurement (Unit)'
+        title               -- Title for the resulting plot.
         dpi                 -- Dpi to save figure with. Int Value.
         hue                 -- True/False whether to uniquely identify the samples in the legend
         filetype            -- specify filetype as one of the following:
@@ -141,10 +142,10 @@ def fit_ramberg_osgood(YoungsModulus, threshold=None, figurewidth='nature-double
                          'Stress Amplitude [MPa]': stressamplitudes})
 
     def rambergosgoodfunction(stressamplitudes, K, n):
-        return (np.divide(stressamplitudes, YoungsModulus) + pow(np.divide(stressamplitudes, K), np.divide(1, n)))*100
+        return (np.divide(stressamplitudes, YoungsModulus) + pow(np.divide(stressamplitudes, K), np.divide(1, n))) * 100
 
     c, cov = curve_fit(rambergosgoodfunction, stressamplitudes, strainamplitudes, maxfev=100000)
-    #Strain Amplitude has to be in absolute unit
+    # Strain Amplitude has to be in absolute unit
 
     stressplot = np.linspace(0, 1.05 * Data['Stress Amplitude [MPa]'].max(), 10000)
     strainplot = rambergosgoodfunction(stressplot, c[0], c[1])
@@ -181,7 +182,10 @@ def fit_ramberg_osgood(YoungsModulus, threshold=None, figurewidth='nature-double
         plt.ylabel('Stress in MPa →')
 
     plt.legend(loc='center right')
-    plt.title('Ramberg-Osgood Curve Fit')
+    if title is not None and isinstance(title, str):
+        plt.title(title)
+    else:
+        plt.title('Ramberg-Osgood Curve Fit')
     plt.tight_layout()
 
     plt.savefig(savedirectory + os.sep + 'Ramberg-Osgood-fit.' + filetype, dpi=dpi)
