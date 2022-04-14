@@ -171,7 +171,7 @@ def plot_cycles_stress(normalizecycles=False, figurewidth='nature-doublecolumn',
 
 def plot_hystereses(Cycles=None, useabsolutecycles=False, figurewidth='nature-doublecolumn', figureheight=None,
                    plotstyle='seaborn-deep',
-                   figurestyle='whitegrid', axisunitstyle='arrow', dpi=500, filetype='pdf', cols=None, normalize=False):
+                   figurestyle='whitegrid', axisunitstyle='arrow', title=None, dpi=500, filetype='pdf', cols=None, normalize=False):
     """Reads multiple evaluated excel files, calculates mean amplitudes, then fits Ramberg Osgood equation to the
     amplitudes and returns a fitting plot.
 
