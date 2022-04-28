@@ -167,7 +167,7 @@ def fit_ramberg_osgood(YoungsModulus, threshold=None, figurewidth='nature-double
                  color='b')
     else:
         sns.scatterplot(data=Data, x='Strain Amplitude [%]', y='Stress Amplitude [MPa]', label='Samples',
-                        color=colormap[0])
+                        palette=colormap[0])
         plt.plot(strainplot, stressplot, label=f'ramberg-osgood\nK = {c[0]:.2f}\nn = {c[1]:.2f}',
                  color='b')
 
