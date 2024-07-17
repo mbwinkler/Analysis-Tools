@@ -1,4 +1,4 @@
-
+# DISCONTINUED!!! THERE WILL BE NO UPDATES TO THIS PACKAGE ANYMORE AS I AM NO LONGER A PART OF TUM METAL STRUCTURES
 
 # TUMMET: Analysis and Evaluation for experimental data.
 [![PyPI Latest Release](https://img.shields.io/pypi/v/TUMMET?color=blue&style=for-the-badge)](https://pypi.org/project/TUMMET/)
